@@ -1,55 +1,101 @@
-Jogo do Número Secreto
-🎯 Sobre
-Este é um jogo simples desenvolvido como parte de um projeto para cursos de lógica de programação. O objetivo é adivinhar um número secreto gerado aleatoriamente entre 1 e 50, e o jogo fornece feedback sobre se o número secreto é maior ou menor do que o chute do jogador.
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo do Número Secreto</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Jogo do Número Secreto</h1>
+    <p>🎯 Adivinhe o número secreto entre 1 e 50!</p>
+  </header>
 
-🚀 Tecnologias
-<div> <img src="https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> </div>
-📜 Como Funciona
-Iniciar o Jogo: Ao acessar a página, o título "Jogo do número secreto" será exibido, e você será instruído a escolher um número entre 1 e 50.
-Chutar o Número: Insira um número no campo de entrada e pressione Enter ou clique no botão para submeter.
-Dicas: O jogo indicará se o número secreto é maior ou menor que o seu chute.
-Acertou!: Quando o número secreto for descoberto, o jogo mostrará o número de tentativas e permitirá reiniciar.
-Reiniciar: Após acertar ou em qualquer momento, você pode reiniciar o jogo com um botão.
-⚙️ Funcionalidades
-Exibição de mensagens: O jogo utiliza a API responsiveVoice para ler as mensagens em voz alta, tornando a experiência mais interativa.
-Número secreto aleatório: O número secreto é gerado aleatoriamente entre 1 e 50, sem repetições até que todos os números sejam sorteados.
-Tentativas: O número de tentativas é contado, e ao acertar o número, o jogo mostra quantas tentativas foram necessárias.
-💻 Como Rodar o Projeto
-1. Clone o repositório
-bash
-Copy code
-git clone https://link-do-repositorio.git
-2. Abra o arquivo index.html
-Abra o arquivo index.html em qualquer navegador moderno para começar a jogar.
+  <main>
+    <section id="game">
+      <div id="instructions">
+        <h2>Como jogar:</h2>
+        <p>Escolha um número entre 1 e 50 e tente adivinhar o número secreto.</p>
+        <p>Dicas serão dadas para ajudar você a acertar!</p>
+      </div>
 
-📝 Exemplo de Interação
-O jogo começa com a mensagem: "Escolha um número entre 1 e 50".
-O jogador escolhe o número 25.
-O jogo responde: "O número secreto é maior".
-O jogador tenta com 40.
-O jogo responde: "O número secreto é menor".
-O jogador escolhe 32 e acerta! O jogo mostra: "Você descobriu o número secreto com 3 tentativas!".
-🔧 Funcões do Código
-exibirTextoNaTela(tag, texto)
-Exibe um texto dentro de uma tag HTML especificada e utiliza a API responsiveVoice para falar o texto.
+      <div id="interaction">
+        <input type="number" id="guessInput" placeholder="Digite seu chute" min="1" max="50">
+        <button id="submitGuess">Enviar</button>
+        <button id="restartGame">Reiniciar</button>
+        <p id="feedback"></p>
+      </div>
+    </section>
 
-exibirMensagemInicial()
-Exibe a mensagem inicial do jogo, pedindo para o jogador escolher um número.
+    <section id="about">
+      <h2>🚀 Tecnologias</h2>
+      <div>
+        <img src="https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white">
+        <img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white">
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+      </div>
+    </section>
 
-verificarChute()
-Verifica se o chute do jogador está correto, e dá dicas sobre o número secreto.
+    <section id="example">
+      <h2>📝 Exemplo de Interação</h2>
+      <p>Você escolhe: <strong>25</strong>. O jogo responde: "O número secreto é maior".</p>
+      <p>Você escolhe: <strong>40</strong>. O jogo responde: "O número secreto é menor".</p>
+      <p>Você escolhe: <strong>32</strong>. O jogo responde: "Você descobriu o número secreto com 3 tentativas!"</p>
+    </section>
 
-gerarNumeroAleatorio()
-Gera um número aleatório entre 1 e 50, sem repetições.
+    <section id="license">
+      <h2>📄 Licença</h2>
+      <p>Este projeto está sob a licença MIT.</p>
+    </section>
 
-limparCampo()
-Limpa o campo de entrada para o próximo chute.
+    <footer>
+      <p>🤝 Contribuições são bem-vindas!</p>
+    </footer>
+  </main>
 
-reiniciarJogo()
-Reinicia o jogo, gerando um novo número secreto e resetando as tentativas.
+  <script>
+    let numeroSecreto = gerarNumeroAleatorio();
+    let tentativas = 0;
 
-📄 Licença
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+    function gerarNumeroAleatorio() {
+      return Math.floor(Math.random() * 50) + 1;
+    }
 
-🤝 Contribuições
-Este projeto é pessoal, mas contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias.
+    function exibirTextoNaTela(tag, texto) {
+      const elemento = document.querySelector(tag);
+      elemento.textContent = texto;
+      responsiveVoice.speak(texto, "Portuguese Female");
+    }
+
+    function verificarChute() {
+      const chute = parseInt(document.getElementById("guessInput").value);
+      tentativas++;
+      if (isNaN(chute) || chute < 1 || chute > 50) {
+        exibirTextoNaTela("#feedback", "Por favor, insira um número válido entre 1 e 50.");
+        return;
+      }
+      if (chute === numeroSecreto) {
+        exibirTextoNaTela("#feedback", `Parabéns! Você acertou o número secreto ${numeroSecreto} em ${tentativas} tentativas!`);
+      } else if (chute < numeroSecreto) {
+        exibirTextoNaTela("#feedback", "O número secreto é maior!");
+      } else {
+        exibirTextoNaTela("#feedback", "O número secreto é menor!");
+      }
+    }
+
+    function reiniciarJogo() {
+      numeroSecreto = gerarNumeroAleatorio();
+      tentativas = 0;
+      document.getElementById("guessInput").value = "";
+      exibirTextoNaTela("#feedback", "Novo jogo iniciado! Escolha um número entre 1 e 50.");
+    }
+
+    document.getElementById("submitGuess").addEventListener("click", verificarChute);
+    document.getElementById("restartGame").addEventListener("click", reiniciarJogo);
+
+    window.onload = () => exibirTextoNaTela("#feedback", "Escolha um número entre 1 e 50 para começar!");
+  </script>
+</body>
+</html>
