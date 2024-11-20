@@ -16,7 +16,7 @@ Como Rodar o Projeto
 1. Clone o repositório
 bash
 Copy code
-git clone https://link-do-repositorio.git
+git clone https://github.com/DreamSinn/Testorino
 2. Abra o arquivo index.html no seu navegador
 Este projeto não requer instalação de pacotes ou configurações adicionais. Basta abrir o arquivo HTML em qualquer navegador moderno para começar a jogar.
 
