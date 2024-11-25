@@ -20,6 +20,6 @@
 
 <h2>💻 Como Rodar o Projeto</h2>
 <ol>
-  <li>Clone o repositório: <code>git clone https://github.com/DreamSinn/Testorino</code></li>
+  <li>Clone o repositório: <code>git clone https://github.com/DreamSinn/Jogo-do-numero-secreto</code></li>
   <li>Abra o arquivo <code>index.html</code> em seu navegador.</li>
 </ol>
